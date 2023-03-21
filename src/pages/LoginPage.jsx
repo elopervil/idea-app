@@ -14,10 +14,12 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
+  Flex,
+  Heading,
 } from "@chakra-ui/react";
 
 const LOGIN_USER = gql`
-  mutation TokenAuth($email: String!, $password: String!) {
+  mutation tokenAuth($email: String!, $password: String!) {
     tokenAuth(email: $email, password: $password) {
       token
       payload
@@ -44,7 +46,7 @@ const LoginPage = () => {
   const [tokenAuth, { data, loading, error }] = useMutation(LOGIN_USER, {
     update(proxy, { data: { tokenAuth: userData } }) {
       context.login(userData);
-      navigate("/");
+      navigate("/dashboard");
     },
     onError({ graphQLErrors }) {
       setErrors(graphQLErrors);
@@ -53,40 +55,43 @@ const LoginPage = () => {
   });
 
   return (
-    <Box w="sm">
-      <form onSubmit={onSubmit}>
-        <Stack spacing={4}>
-          <FormControl isRequired>
-            <FormLabel>Email address</FormLabel>
-            <Input
-              type="email"
-              name="email"
-              placeholder="Enter email"
-              onChange={onChange}
-            />
-          </FormControl>
-          <FormControl isRequired>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              name="password"
-              placeholder="Enter password"
-              onChange={onChange}
-            />
-          </FormControl>
-          <Button type="submit">Submit</Button>
-        </Stack>
-      </form>
-      {errors.map(function (error) {
-        return (
-          <Alert status="error">
-            <AlertIcon />
-            <AlertTitle>Error message:</AlertTitle>
-            <AlertDescription>{error.message}</AlertDescription>
-          </Alert>
-        );
-      })}
-    </Box>
+    <Flex flexDirection="column" alignItems="center" mt="10">
+      <Heading mb="5">Login</Heading>
+      <Box w="sm">
+        <form onSubmit={onSubmit}>
+          <Stack spacing={4}>
+            <FormControl isRequired>
+              <FormLabel>Email address</FormLabel>
+              <Input
+                type="email"
+                name="email"
+                placeholder="Enter email"
+                onChange={onChange}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel>Password</FormLabel>
+              <Input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                onChange={onChange}
+              />
+            </FormControl>
+            <Button type="submit">Login</Button>
+          </Stack>
+        </form>
+        {errors.map(function (error) {
+          return (
+            <Alert status="error">
+              <AlertIcon />
+              <AlertTitle>Error message:</AlertTitle>
+              <AlertDescription>{error.message}</AlertDescription>
+            </Alert>
+          );
+        })}
+      </Box>
+    </Flex>
   );
 };
 

@@ -8,15 +8,16 @@ const Header = () => {
         alignItems="center"
         justifyContent="center"
         width="100%"
-        py={12}
+        height="150px"
         bg="gray.900"
       >
-        <ButtonGroup gap="50">
+        <ButtonGroup display="flex" flexWrap="wrap" justifyContent="center">
           <Link to="/login">
             <Button
               bg="gray.200"
               color="black"
               w="sm"
+              mb="2"
               transition="all 0.8s"
               _hover={{
                 bg: "gray.900",
