@@ -1,5 +1,9 @@
-import { Heading } from "@chakra-ui/react";
+import { Heading, Flex } from "@chakra-ui/react";
 
 export default function Profile(props) {
-  return <Heading>Profile</Heading>;
+  return (
+    <Flex direction="column" justify="center" height="100vh">
+      <Heading>Profile</Heading>
+    </Flex>
+  );
 }

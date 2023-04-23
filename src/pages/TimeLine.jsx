@@ -27,10 +27,12 @@ export default function TimeLine() {
   return data.listAllIdeas.map((idea) => {
     return (
       <BoxIdea
+        userID={idea.pubUser.id}
         username={idea.pubUser.username}
         email={idea.pubUser.email}
         content={idea.content}
         date={idea.pubDate}
+        visibility={idea.visibility}
         key={idea.id}
       />
     );

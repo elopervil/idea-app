@@ -1,3 +1,5 @@
+import { createContext, useState } from "react";
+import { userDataContext } from "../context/userDataContext";
 import { useQuery, gql } from "@apollo/client";
 import { Heading, Flex, Image, IconButton, Text } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
@@ -5,7 +7,7 @@ import ButtonLogout from "../components/ButtonLogout";
 import LoadingCircle from "../components/LoadingCircle";
 import LinkButton from "../components/LinkButton";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
-import { useState } from "react";
+import ButtonIdea from "../components/ButtonIdea";
 
 const GET_USER_DATA = gql`
   query {
@@ -83,7 +85,7 @@ const Dashboard = () => {
         <Flex justify="flex-end">
           <IconButton
             mt="2"
-            mr="2"
+            mr="4"
             aria-label="Close Menu"
             size="lg"
             icon={<CloseIcon />}
@@ -91,8 +93,17 @@ const Dashboard = () => {
           />
         </Flex>
         <Flex direction="column" align="center">
-          <LinkButton name="Home" path="/dashboard" />
-          <LinkButton name="Profile" path="/dashboard/profile" />
+          <LinkButton
+            name="Home"
+            path="/dashboard"
+            onPress={() => setDisplay("none")}
+          />
+          <LinkButton
+            name="Profile"
+            path="/dashboard/profile"
+            onPress={() => setDisplay("none")}
+          />
+          <ButtonIdea onPress={() => setDisplay("none")} />
           <ButtonLogout />
         </Flex>
       </Flex>
@@ -103,24 +114,36 @@ const Dashboard = () => {
       >
         <Flex
           direction="column"
-          justify="center"
+          align="center"
           width="20%"
           position="static"
           boxShadow="2xl"
           display={["none", "none", "none", "flex"]}
         >
-          <LinkButton name="Home" path="/dashboard" />
-          <LinkButton name="Profile" path="/dashboard/profile" />
-          <ButtonLogout />
+          <Flex
+            direction="column"
+            justify="center"
+            mt="20"
+            position="fixed"
+            w="300px"
+          >
+            <LinkButton name="Home" path="/dashboard" />
+            <LinkButton name="Profile" path="/dashboard/profile" />
+            <ButtonIdea />
+            <ButtonLogout />
+          </Flex>
         </Flex>
         <Flex
           direction="column"
           justifyContent="center"
           alignItems="center"
           mt="10"
+          mb="10"
           width="60%"
         >
-          <Outlet />
+          <userDataContext.Provider value={data.me}>
+            <Outlet />
+          </userDataContext.Provider>
         </Flex>
         <Flex
           width="20%"
@@ -128,7 +151,9 @@ const Dashboard = () => {
           boxShadow="2xl"
           display={["none", "none", "none", "flex"]}
         >
-          <Text mt="20">Perfil Usuario</Text>
+          <Text mt="20" position="fixed">
+            Perfil Usuario
+          </Text>
         </Flex>
       </Flex>
     </Flex>

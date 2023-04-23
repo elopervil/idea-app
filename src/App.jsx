@@ -15,31 +15,8 @@ import PrivateRoutes from "./routes/PrivateRoutes";
 import TimeLine from "./pages/TimeLine";
 import Profile from "./pages/Profile";
 
-/*const GET_USERS = gql`
-  query {
-    users {
-      username
-      email
-      id
-    }
-  }
-`;*/
-
 function App() {
   const context = useContext(AuthContext);
-
-  /*const { loading, error, data } = useQuery(GET_USERS);
-  console.log(data);
-  if (loading)
-    return (
-      <AbsoluteCenter>
-        <CircularProgress isIndeterminate color="gray.900" size="120px" />;
-        <Heading as="h3" size="lg">
-          Loading...
-        </Heading>
-      </AbsoluteCenter>
-    );
-  if (error) return <p>Error: {error.message}</p>;*/
 
   return (
     <div className="App">
