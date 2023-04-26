@@ -1,7 +1,7 @@
-import { createContext, useState } from "react";
+import { useState } from "react";
 import { userDataContext } from "../context/userDataContext";
 import { useQuery, gql } from "@apollo/client";
-import { Heading, Flex, Image, IconButton, Text } from "@chakra-ui/react";
+import { Flex, Image, IconButton, Text } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import ButtonLogout from "../components/ButtonLogout";
 import LoadingCircle from "../components/LoadingCircle";
@@ -47,7 +47,7 @@ const Dashboard = () => {
   if (error) return <p>Error: {error.message}</p>;
   console.log(data);
   return (
-    <Flex direction="column">
+    <Flex direction="column" height="100%">
       <Flex
         position="fixed"
         zIndex={20}
@@ -108,10 +108,7 @@ const Dashboard = () => {
         </Flex>
       </Flex>
 
-      <Flex
-        justify={["center", "center", "center", "space-between"]}
-        height="100%"
-      >
+      <Flex justify={["center", "center", "center", "space-between"]}>
         <Flex
           direction="column"
           align="center"
@@ -135,7 +132,6 @@ const Dashboard = () => {
         </Flex>
         <Flex
           direction="column"
-          justifyContent="center"
           alignItems="center"
           mt="10"
           mb="10"

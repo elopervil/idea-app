@@ -3,29 +3,35 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Button,
 } from "@chakra-ui/react";
-import FormIdea from "./FormIdea";
+import { EditIcon } from "@chakra-ui/icons";
+import FormIdeaEdit from "./FormIdeaEdit";
 
-export default function ButtonIdea(props) {
+export default function ButtonIdeaEdit(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button colorScheme="messenger" w="100%" onClick={onOpen}>
-        Add Idea
-      </Button>
+      <EditIcon
+        mr="2"
+        _hover={{
+          color: "blue.500",
+          boxSize: "5",
+          cursor: "pointer",
+          transition: "0.8s",
+        }}
+        onClick={onOpen}
+      />
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add Idea</ModalHeader>
+          <ModalHeader>Edit Idea</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <FormIdea />
+            <FormIdeaEdit idea={props.idea} />
           </ModalBody>
         </ModalContent>
       </Modal>

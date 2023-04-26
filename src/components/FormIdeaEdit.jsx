@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useForm } from "../utility/hooks";
 import { useMutation, gql } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
 import {
   FormControl,
   FormLabel,
@@ -15,9 +14,9 @@ import {
   AlertDescription,
 } from "@chakra-ui/react";
 
-const ADD_IDEA = gql`
-  mutation addIdea($content: String!, $visibility: String!) {
-    addIdea(content: $content, visibility: $visibility) {
+const EDIT_IDEA = gql`
+  mutation editIdea($id: ID!, $content: String!, $visibility: String!) {
+    editIdea(id: $id, content: $content, visibility: $visibility) {
       success
       error
       idea {
@@ -29,21 +28,21 @@ const ADD_IDEA = gql`
   }
 `;
 
-export default function FormIdea(props) {
+export default function FormIdeaEdit(props) {
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  function addIdeaCallback() {
-    addIdea();
+  function editIdeaCallback() {
+    editIdea();
   }
 
-  const [onChange, onSubmit, values] = useForm(addIdeaCallback, {
+  const [onChange, onSubmit, values] = useForm(editIdeaCallback, {
+    id: props.idea.id,
     content: "",
     visibility: "",
   });
-  const [addIdea, { data, loading, error }] = useMutation(ADD_IDEA, {
-    update(proxy, { data: { addIdea: ideaData } }) {
-      console.log(ideaData);
+  const [editIdea, { data, loading, error }] = useMutation(EDIT_IDEA, {
+    update(cache, { data: { editIdea: ideaData } }) {
       setSuccess(ideaData.success);
     },
     onError({ graphQLErrors }) {
@@ -58,9 +57,10 @@ export default function FormIdea(props) {
           <FormControl isRequired>
             <FormLabel>Text Idea:</FormLabel>
             <Textarea
+              defaultValue={props.idea.content}
               type="text"
               name="content"
-              placeholder="Write your Idea..."
+              placeholder="Edit your Idea..."
               onChange={onChange}
             />
           </FormControl>
@@ -70,6 +70,7 @@ export default function FormIdea(props) {
               placeholder="Select Visibility"
               name="visibility"
               onChange={onChange}
+              defaultValue={props.idea.visibility.toLowerCase()}
             >
               <option value="public">Public</option>
               <option value="protected">Protected</option>
@@ -77,7 +78,7 @@ export default function FormIdea(props) {
             </Select>
           </FormControl>
           <Button colorScheme="blue" type="submit">
-            Add Idea
+            Edit Idea
           </Button>
         </Stack>
       </form>
@@ -93,7 +94,7 @@ export default function FormIdea(props) {
       {success && (
         <Alert status="info">
           <AlertIcon />
-          <AlertDescription>Idea posted successfully!</AlertDescription>
+          <AlertDescription>Idea successfully edited!</AlertDescription>
         </Alert>
       )}
     </>
