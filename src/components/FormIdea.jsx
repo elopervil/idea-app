@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useForm } from "../utility/hooks";
-import { useMutation, gql } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
 import {
   FormControl,
   FormLabel,
@@ -14,27 +13,17 @@ import {
   AlertTitle,
   AlertDescription,
 } from "@chakra-ui/react";
-
-const ADD_IDEA = gql`
-  mutation addIdea($content: String!, $visibility: String!) {
-    addIdea(content: $content, visibility: $visibility) {
-      success
-      error
-      idea {
-        content
-        visibility
-        pubDate
-      }
-    }
-  }
-`;
+import { ADD_IDEA, GET_LIST_ALL_IDEAS } from "../graphql/request";
 
 export default function FormIdea(props) {
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState([]);
 
   function addIdeaCallback() {
-    addIdea();
+    addIdea({
+      refetchQueries: [GET_LIST_ALL_IDEAS],
+      awaitRefetchQueries: true,
+    });
   }
 
   const [onChange, onSubmit, values] = useForm(addIdeaCallback, {

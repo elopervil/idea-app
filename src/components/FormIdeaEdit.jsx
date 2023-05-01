@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "../utility/hooks";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   FormControl,
   FormLabel,
@@ -13,27 +13,17 @@ import {
   AlertTitle,
   AlertDescription,
 } from "@chakra-ui/react";
-
-const EDIT_IDEA = gql`
-  mutation editIdea($id: ID!, $content: String!, $visibility: String!) {
-    editIdea(id: $id, content: $content, visibility: $visibility) {
-      success
-      error
-      idea {
-        content
-        visibility
-        pubDate
-      }
-    }
-  }
-`;
+import { EDIT_IDEA, GET_LIST_ALL_IDEAS } from "../graphql/request";
 
 export default function FormIdeaEdit(props) {
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState([]);
 
   function editIdeaCallback() {
-    editIdea();
+    editIdea({
+      refetchQueries: [GET_LIST_ALL_IDEAS],
+      awaitRefetchQueries: true,
+    });
   }
 
   const [onChange, onSubmit, values] = useForm(editIdeaCallback, {

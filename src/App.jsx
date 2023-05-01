@@ -1,8 +1,8 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import "./App.css";
-import { useQuery, gql } from "@apollo/client";
+
 import { Route, Routes } from "react-router-dom";
-import { CircularProgress, AbsoluteCenter, Heading } from "@chakra-ui/react";
+
 import { AuthContext } from "./context/authContext";
 
 import Header from "./components/Header";

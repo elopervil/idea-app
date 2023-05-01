@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/authContext";
 import { useForm } from "../utility/hooks";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -17,15 +17,7 @@ import {
   Flex,
   Heading,
 } from "@chakra-ui/react";
-
-const LOGIN_USER = gql`
-  mutation tokenAuth($email: String!, $password: String!) {
-    tokenAuth(email: $email, password: $password) {
-      token
-      payload
-    }
-  }
-`;
+import { LOGIN_USER } from "../graphql/request";
 
 const LoginPage = () => {
   let navigate = useNavigate();

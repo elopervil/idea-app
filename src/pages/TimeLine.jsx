@@ -1,23 +1,9 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import BoxIdea from "../components/BoxIdea";
 import LoadingCircle from "../components/LoadingCircle";
 import { useState, useEffect } from "react";
 import { redirect, useLocation } from "react-router-dom";
-const GET_LIST_ALL_IDEAS = gql`
-  query {
-    listAllIdeas {
-      id
-      content
-      visibility
-      pubDate
-      pubUser {
-        id
-        username
-        email
-      }
-    }
-  }
-`;
+import { GET_LIST_ALL_IDEAS } from "../graphql/request";
 
 export default function TimeLine() {
   const location = useLocation();
@@ -32,12 +18,6 @@ export default function TimeLine() {
   if (loading) return <LoadingCircle />;
   if (error) return <p>Error: {error.message}</p>;
 
-  const handleModIdea = () => {
-    refetch({
-      onCompleted: () => redirect("/dashboard"),
-    });
-  };
-
   return data.listAllIdeas.map((idea) => {
     return (
       <BoxIdea
@@ -49,7 +29,6 @@ export default function TimeLine() {
         date={idea.pubDate}
         visibility={idea.visibility}
         key={idea.id}
-        onDelete={handleModIdea}
       />
     );
   });

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { userDataContext } from "../context/userDataContext";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { Flex, Image, IconButton, Text } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import ButtonLogout from "../components/ButtonLogout";
@@ -8,36 +8,8 @@ import LoadingCircle from "../components/LoadingCircle";
 import LinkButton from "../components/LinkButton";
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import ButtonIdea from "../components/ButtonIdea";
-
-const GET_USER_DATA = gql`
-  query {
-    me {
-      id
-      email
-      username
-      following {
-        username
-      }
-      followers {
-        username
-      }
-      ideaUser {
-        content
-        visibility
-      }
-      followRecived {
-        requester {
-          username
-        }
-      }
-      followSend {
-        toFollow {
-          username
-        }
-      }
-    }
-  }
-`;
+import { GET_USER_DATA } from "../graphql/request";
+import { MiniProfile } from "../components/MiniProfile";
 
 const Dashboard = () => {
   const { loading, error, data } = useQuery(GET_USER_DATA);
@@ -147,9 +119,17 @@ const Dashboard = () => {
           boxShadow="2xl"
           display={["none", "none", "none", "flex"]}
         >
-          <Text mt="20" position="fixed">
-            Perfil Usuario
-          </Text>
+          <Flex
+            direction="column"
+            justify="center"
+            mt="20"
+            position="fixed"
+            width="300px"
+          >
+            <userDataContext.Provider value={data.me}>
+              <MiniProfile />
+            </userDataContext.Provider>
+          </Flex>
         </Flex>
       </Flex>
     </Flex>

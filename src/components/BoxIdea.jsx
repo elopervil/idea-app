@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { userDataContext } from "../context/userDataContext";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   Card,
   CardHeader,
@@ -15,16 +15,7 @@ import {
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import FormIdea from "./FormIdea";
 import ButtonIdeaEdit from "./ButtonIdeaEdit";
-
-const DELETE_IDEA = gql`
-  mutation deleteIdea($id: ID!) {
-    deleteIdea(id: $id) {
-      success
-      error
-      message
-    }
-  }
-`;
+import { DELETE_IDEA, GET_LIST_ALL_IDEAS } from "../graphql/request";
 
 export default function BoxIdea(props) {
   const userData = useContext(userDataContext);
@@ -36,8 +27,9 @@ export default function BoxIdea(props) {
       variables: {
         id: props.ideaID,
       },
+      refetchQueries: [GET_LIST_ALL_IDEAS],
+      awaitRefetchQueries: true,
     });
-    props.onDelete(props.ideaID);
   };
 
   return (

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/authContext";
 import { useForm } from "../utility/hooks";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -17,20 +17,7 @@ import {
   Flex,
   Heading,
 } from "@chakra-ui/react";
-
-const REGISTER_USER = gql`
-  mutation register($email: String!, $username: String!, $password: String!) {
-    register(email: $email, username: $username, password: $password) {
-      token
-      success
-      user {
-        id
-        username
-        email
-      }
-    }
-  }
-`;
+import { REGISTER_USER } from "../graphql/request";
 
 const RegisterPage = () => {
   let navigate = useNavigate();
