@@ -44,6 +44,30 @@ export const GET_USER_DATA = gql`
         toFollow {
           username
         }
+        status
+      }
+    }
+  }
+`;
+
+export const SEARCH_USERS = gql`
+  query searchUsers($username: String!) {
+    searchUsers(username: $username) {
+      id
+      email
+      username
+      following {
+        id
+        username
+      }
+      followers {
+        id
+        username
+      }
+      ideaUser {
+        id
+        content
+        visibility
       }
     }
   }
@@ -108,6 +132,16 @@ export const EDIT_IDEA = gql`
         visibility
         pubDate
       }
+    }
+  }
+`;
+
+export const UNFOLLOW = gql`
+  mutation unfollow($idUser: ID!) {
+    unfollow(idUser: $idUser) {
+      success
+      message
+      error
     }
   }
 `;

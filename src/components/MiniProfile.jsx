@@ -6,15 +6,15 @@ import { Link as LinkRouter } from "react-router-dom";
 
 export function MiniProfile() {
   const dataUser = useContext(userDataContext);
-  console.log(dataUser);
+
   let fowReq = dataUser.followRecived.filter(
     (follow) => follow.status == "PENDING"
   );
   const [followRequest, setFollowRequest] = useState(fowReq);
 
   return (
-    <Box p={4} align="center">
-      <Avatar size="2xl" name="" src="">
+    <Box pt={4} align="center">
+      <Avatar size="2xl" name={dataUser.username} src="">
         <AvatarBadge boxSize="0.8em" bg="green.500" />
       </Avatar>
       <Stack mt={5}>
@@ -32,7 +32,7 @@ export function MiniProfile() {
           {followRequest.length != 0 && (
             <Link
               as={LinkRouter}
-              to="/dashboard/profile"
+              to={`/dashboard/profile`}
               color="green.500"
               alignItems="center"
               onClick={() => setFollowRequest([])}

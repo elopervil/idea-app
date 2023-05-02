@@ -12,10 +12,11 @@ import {
   Avatar,
   Divider,
 } from "@chakra-ui/react";
-import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import FormIdea from "./FormIdea";
 import ButtonIdeaEdit from "./ButtonIdeaEdit";
 import { DELETE_IDEA, GET_LIST_ALL_IDEAS } from "../graphql/request";
+import { Link } from "react-router-dom";
 
 export default function BoxIdea(props) {
   const userData = useContext(userDataContext);
@@ -37,9 +38,25 @@ export default function BoxIdea(props) {
       <CardHeader>
         <Flex spacing="4">
           <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-            <Avatar name="" src="" />
+            <Link
+              to={
+                props.userID === userData.id
+                  ? "/dashboard/profile"
+                  : `/dashboard/profile/${props.username}`
+              }
+            >
+              <Avatar name={props.username} />
+            </Link>
             <Box>
-              <Heading size="sm">{props.username}</Heading>
+              <Link
+                to={
+                  props.userID === userData.id
+                    ? "/dashboard/profile"
+                    : `/dashboard/profile/${props.username}`
+                }
+              >
+                <Heading size="sm">{props.username}</Heading>
+              </Link>
               <Text>{props.email}</Text>
             </Box>
           </Flex>

@@ -4,8 +4,8 @@
   box-sizing: border-box;
 }
 .App {
-  height: 100%;
+  min-height: 100vh;
 }
 #root {
-  height: 100%;
+  min-height: 100vh;
 }

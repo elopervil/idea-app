@@ -2,7 +2,7 @@ import { useState } from "react";
 import { userDataContext } from "../context/userDataContext";
 import { useQuery } from "@apollo/client";
 import { Flex, Image, IconButton, Text } from "@chakra-ui/react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import ButtonLogout from "../components/ButtonLogout";
 import LoadingCircle from "../components/LoadingCircle";
 import LinkButton from "../components/LinkButton";
@@ -12,14 +12,15 @@ import { GET_USER_DATA } from "../graphql/request";
 import { MiniProfile } from "../components/MiniProfile";
 
 const Dashboard = () => {
+  const location = useLocation();
   const { loading, error, data } = useQuery(GET_USER_DATA);
   const [display, setDisplay] = useState("none");
 
   if (loading) return <LoadingCircle />;
   if (error) return <p>Error: {error.message}</p>;
-  console.log(data);
+
   return (
-    <Flex direction="column" height="100%">
+    <Flex direction="column" minHeight="100vh">
       <Flex
         position="fixed"
         zIndex={20}
@@ -80,7 +81,10 @@ const Dashboard = () => {
         </Flex>
       </Flex>
 
-      <Flex justify={["center", "center", "center", "space-between"]}>
+      <Flex
+        justify={["center", "center", "center", "space-between"]}
+        minHeight="100vh"
+      >
         <Flex
           direction="column"
           align="center"
@@ -97,7 +101,7 @@ const Dashboard = () => {
             w="300px"
           >
             <LinkButton name="Home" path="/dashboard" />
-            <LinkButton name="Profile" path="/dashboard/profile" />
+            <LinkButton name="Profile" path={`/dashboard/profile`} />
             <ButtonIdea />
             <ButtonLogout />
           </Flex>
@@ -127,7 +131,7 @@ const Dashboard = () => {
             width="300px"
           >
             <userDataContext.Provider value={data.me}>
-              <MiniProfile />
+              {location.pathname != `/dashboard/profile` && <MiniProfile />}
             </userDataContext.Provider>
           </Flex>
         </Flex>

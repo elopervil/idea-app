@@ -13,7 +13,8 @@ import Dashboard from "./pages/Dashboard";
 import PublicRoutes from "./routes/PublicRoutes";
 import PrivateRoutes from "./routes/PrivateRoutes";
 import TimeLine from "./pages/TimeLine";
-import Profile from "./pages/Profile";
+import ProfileUser from "./pages/ProfileUser";
+import { Profile } from "./pages/Profile";
 
 function App() {
   const context = useContext(AuthContext);
@@ -31,6 +32,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} exact>
             <Route index element={<TimeLine />} exact />
             <Route path="/dashboard/profile" element={<Profile />} />
+            <Route path="/dashboard/profile/:slug" element={<ProfileUser />} />
           </Route>
         </Route>
       </Routes>

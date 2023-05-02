@@ -1,9 +1,10 @@
-import { Heading, Flex } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
+import { MiniProfile } from "../components/MiniProfile";
 
-export default function Profile(props) {
+export function Profile() {
   return (
-    <Flex direction="column" justify="center" height="100vh">
-      <Heading>Profile</Heading>
+    <Flex direction="column" align="center" mt="20" height="100vh">
+      <MiniProfile />
     </Flex>
   );
 }
