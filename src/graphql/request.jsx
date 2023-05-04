@@ -25,14 +25,23 @@ export const GET_USER_DATA = gql`
       email
       username
       following {
+        id
         username
       }
       followers {
+        id
         username
       }
       ideaUser {
+        id
         content
         visibility
+        pubDate
+        pubUser {
+          id
+          username
+          email
+        }
       }
       followRecived {
         requester {
@@ -68,7 +77,27 @@ export const SEARCH_USERS = gql`
         id
         content
         visibility
+        pubDate
+        pubUser {
+          id
+          username
+          email
+        }
       }
+    }
+  }
+`;
+
+export const FOLLOW_UP_REQUEST = gql`
+  query {
+    followUpRequest {
+      id
+      requester {
+        id
+        username
+        email
+      }
+      status
     }
   }
 `;
@@ -142,6 +171,32 @@ export const UNFOLLOW = gql`
       success
       message
       error
+    }
+  }
+`;
+
+export const SEND_FOLLOW_REQUEST = gql`
+  mutation sendFollowRequest($idUser: ID!) {
+    sendFollowRequest(idUser: $idUser) {
+      success
+      error
+      message
+      followRequest {
+        toFollow {
+          username
+        }
+        status
+      }
+    }
+  }
+`;
+
+export const RESPONSE_FOLLOW_REQUEST = gql`
+  mutation responseFollowRequest($idRequest: ID!, $response: Boolean!) {
+    responseFollowRequest(idRequest: $idRequest, response: $response) {
+      success
+      error
+      message
     }
   }
 `;

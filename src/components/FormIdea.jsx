@@ -13,7 +13,11 @@ import {
   AlertTitle,
   AlertDescription,
 } from "@chakra-ui/react";
-import { ADD_IDEA, GET_LIST_ALL_IDEAS } from "../graphql/request";
+import {
+  ADD_IDEA,
+  GET_LIST_ALL_IDEAS,
+  GET_USER_DATA,
+} from "../graphql/request";
 
 export default function FormIdea(props) {
   const [success, setSuccess] = useState(false);
@@ -21,7 +25,7 @@ export default function FormIdea(props) {
 
   function addIdeaCallback() {
     addIdea({
-      refetchQueries: [GET_LIST_ALL_IDEAS],
+      refetchQueries: [GET_LIST_ALL_IDEAS, GET_USER_DATA],
       awaitRefetchQueries: true,
     });
   }

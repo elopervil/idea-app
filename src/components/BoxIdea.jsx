@@ -13,9 +13,12 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
-import FormIdea from "./FormIdea";
 import ButtonIdeaEdit from "./ButtonIdeaEdit";
-import { DELETE_IDEA, GET_LIST_ALL_IDEAS } from "../graphql/request";
+import {
+  DELETE_IDEA,
+  GET_LIST_ALL_IDEAS,
+  GET_USER_DATA,
+} from "../graphql/request";
 import { Link } from "react-router-dom";
 
 export default function BoxIdea(props) {
@@ -28,7 +31,7 @@ export default function BoxIdea(props) {
       variables: {
         id: props.ideaID,
       },
-      refetchQueries: [GET_LIST_ALL_IDEAS],
+      refetchQueries: [GET_LIST_ALL_IDEAS, GET_USER_DATA],
       awaitRefetchQueries: true,
     });
   };
