@@ -12,6 +12,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { MiniProfile } from "../components/MiniProfile";
+import ButtonChangePassword from "../components/ButtonChangePassword";
+import ButtonDeleteFollower from "../components/ButtonDeleteFollower";
 import BoxIdea from "../components/BoxIdea";
 import { useContext } from "react";
 import { userDataContext } from "../context/userDataContext";
@@ -31,6 +33,7 @@ export function Profile() {
   return (
     <Flex direction="column" align="center" mt="20" height="100vh">
       <MiniProfile />
+      <ButtonChangePassword />
       <Tabs isFitted minWidth={["sm", "md", "md", "xl"]} mt="5">
         <TabList mb="1em">
           <Tab>Ideas</Tab>
@@ -77,19 +80,29 @@ export function Profile() {
           <TabPanel>
             <SimpleGrid columns={[1, null, 2]} spacing="40px">
               {dataUser.followers.map((user) => (
-                <Link to={`/dashboard/profile/${user.username}`} key={user.id}>
-                  <Box
-                    height="80px"
-                    width="15em"
-                    shadow="2xl"
-                    as={Button}
-                    display={"flex"}
-                    justifyContent={"start"}
+                <Box
+                  height="80px"
+                  width="15em"
+                  shadow="2xl"
+                  as={Button}
+                  display={"flex"}
+                  justifyContent={"start"}
+                >
+                  <Link
+                    to={`/dashboard/profile/${user.username}`}
+                    key={user.id}
                   >
-                    <Avatar name={user.username} />
-                    <Text ml="5">{user.username}</Text>
-                  </Box>
-                </Link>
+                    <Box
+                      display={"flex"}
+                      justifyContent={"start"}
+                      alignItems={"center"}
+                    >
+                      <Avatar name={user.username} />
+                      <Text ml="5">{user.username}</Text>
+                    </Box>
+                  </Link>
+                  <ButtonDeleteFollower id={user.id} />
+                </Box>
               ))}
             </SimpleGrid>
           </TabPanel>

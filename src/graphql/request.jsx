@@ -127,6 +127,25 @@ export const REGISTER_USER = gql`
   }
 `;
 
+export const CHANGE_PASSWORD = gql`
+  mutation changePassword($password: String!) {
+    changePassword(password: $password) {
+      success
+      error
+    }
+  }
+`;
+
+export const DELETE_FOLLOWER = gql`
+  mutation removeFollower($idUser: ID!) {
+    removeFollower(idUser: $idUser) {
+      success
+      message
+      error
+    }
+  }
+`;
+
 export const DELETE_IDEA = gql`
   mutation deleteIdea($id: ID!) {
     deleteIdea(id: $id) {

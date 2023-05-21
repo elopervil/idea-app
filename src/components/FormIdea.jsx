@@ -22,14 +22,12 @@ import {
 export default function FormIdea(props) {
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState([]);
-
   function addIdeaCallback() {
     addIdea({
       refetchQueries: [GET_LIST_ALL_IDEAS, GET_USER_DATA],
       awaitRefetchQueries: true,
     });
   }
-
   const [onChange, onSubmit, values] = useForm(addIdeaCallback, {
     content: "",
     visibility: "",

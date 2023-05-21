@@ -106,6 +106,7 @@ const Dashboard = () => {
             <ButtonLogout />
           </Flex>
         </Flex>
+
         <Flex
           direction="column"
           alignItems="center"
@@ -117,6 +118,7 @@ const Dashboard = () => {
             <Outlet />
           </userDataContext.Provider>
         </Flex>
+
         <Flex
           width="20%"
           position="static"
@@ -129,6 +131,7 @@ const Dashboard = () => {
             mt="20"
             position="fixed"
             width="300px"
+            paddingLeft={"20"}
           >
             <userDataContext.Provider value={data.me}>
               {location.pathname != `/dashboard/profile` && <MiniProfile />}

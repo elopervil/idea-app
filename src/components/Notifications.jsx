@@ -77,7 +77,7 @@ export function Notifications(props) {
                         responseFollowRequest({
                           variables: {
                             idRequest: request.id,
-                            response: true,
+                            response: false,
                           },
                           refetchQueries: [
                             GET_LIST_ALL_IDEAS,

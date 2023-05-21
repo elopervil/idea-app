@@ -1,10 +1,12 @@
 import React, { useReducer, createContext } from "react";
 import jwtDecode from "jwt-decode";
 
+//Creamos un estado inicial
 const initialState = {
   user: null,
 };
 
+//Comprobamos si existe algun token en el localstorage y si este esta caducado.
 if (localStorage.getItem("token")) {
   const decodedToken = jwtDecode(localStorage.getItem("token"));
 
@@ -15,12 +17,15 @@ if (localStorage.getItem("token")) {
   }
 }
 
+//Creamos el contexto de Autenticacion
 const AuthContext = createContext({
   user: null,
   login: (userData) => {},
   logout: () => {},
 });
 
+/*Creamos funcion para utilizar en el hook useReducer de React,
+Segun la accion a realizar LOGIN o LOGOUT asi actualizara el estado de nuestro contexto*/
 function authReducer(state, action) {
   switch (action.type) {
     case "LOGIN":
@@ -38,6 +43,7 @@ function authReducer(state, action) {
   }
 }
 
+//Provider de autenticacion
 function AuthProvider(props) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
