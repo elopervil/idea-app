@@ -59,6 +59,12 @@ export const GET_USER_DATA = gql`
   }
 `;
 
+export const FORGOTTEN_PASSWORD = gql`
+  query forgottenPassword($email: String!) {
+    forgottenPassword(email: $email)
+  }
+`;
+
 export const SEARCH_USERS = gql`
   query searchUsers($username: String!) {
     searchUsers(username: $username) {

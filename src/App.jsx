@@ -15,6 +15,7 @@ import PrivateRoutes from "./routes/PrivateRoutes";
 import TimeLine from "./pages/TimeLine";
 import ProfileUser from "./pages/ProfileUser";
 import { Profile } from "./pages/Profile";
+import PasswordRecovery from "./pages/PasswordRecovery";
 
 function App() {
   const context = useContext(AuthContext);
@@ -27,6 +28,11 @@ function App() {
           <Route path="/" element={<HomePage />} exact />
           <Route path="/login" element={<LoginPage />} exact />
           <Route path="/register" element={<RegisterPage />} exact />
+          <Route
+            path="/passwordrecovery"
+            element={<PasswordRecovery />}
+            exact
+          />
         </Route>
         <Route path="/dashboard" element={<PrivateRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} exact>

@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../context/authContext";
 import { useForm } from "../utility/hooks";
 import { useMutation } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Box,
   FormControl,
@@ -16,6 +16,7 @@ import {
   AlertDescription,
   Flex,
   Heading,
+  Text,
 } from "@chakra-ui/react";
 import { LOGIN_USER } from "../graphql/request";
 
@@ -83,6 +84,17 @@ const LoginPage = () => {
           );
         })}
       </Box>
+      <Text
+        mt="10"
+        _hover={{
+          color: "blue.500",
+        }}
+      >
+        <Link to="/passwordrecovery">
+          Can't remember your password? Click here
+        </Link>
+        .
+      </Text>
     </Flex>
   );
 };
