@@ -87,6 +87,7 @@ export function Profile() {
                   as={Button}
                   display={"flex"}
                   justifyContent={"start"}
+                  key={user.id}
                 >
                   <Link
                     to={`/dashboard/profile/${user.username}`}
